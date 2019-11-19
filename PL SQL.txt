@@ -1,0 +1,248 @@
+//Largest of 3 nos.
+Declare
+    a number;
+    b number;
+    c number;
+Begin
+    dbms_output.put_line('Enter a:');
+        a:=&a;
+    dbms_output.put_line('Enter b:');
+        b:=&b;
+    dbms_output.put_line('Enter c:');
+        c:=&C;
+if (a>b) and (a>c)
+    then
+    dbms_output.put_line('A is GREATEST'||A);
+elsif (b>a) and (b>c)
+    then
+    dbms_output.put_line('B is GREATEST'||B);
+else
+    dbms_output.put_line('C is GREATEST'||C);
+end if;
+End;
+
+//Reverse of given no.
+
+declare
+	n number;
+	i number;
+	rev number:=0;
+	r number;
+ 
+begin
+	n:=&n;
+	
+	while n>0
+	loop
+		r:=mod(n,10);
+		rev:=(rev*10)+r;
+		n:=trunc(n/10);
+	end loop;
+ 
+	dbms_output.put_line('reverse is '||rev);
+ 
+end;
+/
+
+//Factorial of a given no
+Declare  
+num   number:= #  
+fact number:= 1;  
+temp number;  
+begin  
+  temp := num;  
+   while (num > 0)
+loop
+    fact := fact * num;  
+    num   := num - 1;  
+end loop;
+  Dbms_Output.Put_line('factorial of ' || temp ||  '  is ' || fact);  
+end;
+/
+
+//Check prime no or not
+declare
+	n number;
+	i number;
+	flag number;
+ 
+begin
+	i:=2;
+	flag:=1;
+	n:=&n;
+ 
+	for i in 2..n/2
+	loop
+		if mod(n,i)=0
+		then
+			flag:=0;
+			exit;
+		end if;
+	end loop;
+ 
+	if flag=1
+	then
+		dbms_output.put_line('prime');
+	else
+		dbms_output.put_line('not prime');
+	end if;
+end;
+/
+
+//Fibonacci series upto n
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+declare
+	first number:=0;
+	second number:=1;
+	third number;
+	n number:=&n;
+	i number;
+ 
+begin
+	dbms_output.put_line('Fibonacci series is:');
+	dbms_output.put_line(first);
+	dbms_output.put_line(second);	
+ 
+	for i in 2..n
+	loop
+		third:=first+second;
+		first:=second;
+		second:=third;
+		dbms_output.put_line(third);
+	end loop;
+end;
+/
+
+//Sum of 2 nos.
+Declare
+Var1 integer;
+Var2 integer;
+Var3 integer;
+Begin
+Var1:=&var1;
+Var2:=&var2;
+Var3:=var1+var2;
+Dbms_output.put_line(var3);
+End;
+/
+
+//Leap year or not
+DECLARE
+   year NUMBER := 2012;
+BEGIN
+   IF MOD(year, 4)=0
+      AND
+      MOD(year, 100)!=0
+      OR
+      MOD(year, 400)=0 THEN
+      dbms_output.Put_line(year || ' is leap year ');
+   ELSE
+      dbms_output.Put_line(year || ' is not leap year.');
+   END IF;
+END;
+
+//sum of digits in a given no
+declare
+    num int :=0;
+    i int;
+    s int :=0;
+    r int;
+
+begin
+    num:=&num;
+    while num > 0 loop
+        r:= MOD(num, 10);
+        s := s + r;
+        num:=floor(num/10);
+    end loop;
+
+    dbms_output.put_line('  the sum of digits is '||s );
+
+end;
+
+//vowels consonents in a string
+DECLARE
+	-- Here variable V is varchar datatype 
+	-- and flag variable is number datatype 
+	-- variable c is char datatype . 
+	v			 VARCHAR2(400) := 'Ramesh is a Geek'; 
+	noofvowels	 NUMBER := 0; 
+	noofconsonants NUMBER := 0; 
+	C			 CHAR; 
+BEGIN
+	FOR i IN 1..Length(v) LOOP 
+		c := Substr(v, i, 1); 
+
+		-- Check if the current character is vowel 
+		IF c IN ( 'A', 'E', 'I', 'O', 'U' ) 
+			OR c IN ( 'a', 'e', 'i', 'o', 'u' ) THEN
+		noofvowels := noofvowels + 1; 
+
+		-- Else current character is a consonant except space 
+		ELSE
+		IF c NOT IN ( ' ' ) THEN
+			noofconsonants := noofconsonants + 1; 
+		END IF; 
+		END IF; 
+	END LOOP; 
+
+	dbms_output.Put_line('No. of Vowels: '
+						|| noofvowels); 
+
+	dbms_output.Put_line('No. of Consonants: '
+						|| noofconsonants); 
+END; 
+-- Program End 
+
+//odd even digits
+DECLARE 
+  --num variable declared  
+  --num assign with a number  
+  num NUMBER := 123456;  
+  
+  --len variable char declared  
+  len VARCHAR2(20);  
+  
+  --cntvariable declared  
+  cnt1 NUMBER(5) := 0;  
+  cnt2 NUMBER(5) := 0;  
+BEGIN 
+  
+  --for loop go from 1 to length of the number  
+  FOR i IN 1..Length(num)  
+  LOOP  
+    len := Substr(num, i, 1);  
+    IF mod(len, 2) != 0 THEN 
+      cnt1 := cnt1 + 1;  
+    ELSE 
+      cnt2:=cnt2+1;  
+    END IF;  
+  END LOOP; 
+  --end loop  
+  
+  dbms_output.Put_line('Odd Digits: ' 
+  || cnt1);  
+  dbms_output.Put_line('Even Digits: ' 
+  || cnt2);  
+  --display result  
+END;  
+--end program 
