@@ -1,0 +1,852 @@
+abhishek@abhishek-VirtualBox:~$ sudo mysql -u root;
+[sudo] password for abhishek: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 3
+Server version: 5.7.27-0ubuntu0.18.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2019, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database abhishek;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> use abhishek;
+Database changed
+
+mysql> create table employee(emp_id int(5),f_name varchar(30),l_name varchar(30),job_type varchar(30),salary int(10),commission int(10),dept varchar(30),manager_id int(10),d_o_j date);
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into employee values(1,"arun","khan","manager",90000.00,null,"production",null,"1998-01-04");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(2,"barun","kumar","manager",80000.00,null,"marketing",null,"1998-02-09");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(3,"chitra","kapoor","engineer",60000.00,null,"production",null,"1998-01-08");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(4,"dheeraj","mishra","manager",75000.00,null,"sales",null,"2001-12-27");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(5,"emma","dutt","engineer",55000.00,null,"production",null,"2002-03-20");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(6,"floki","dutt","accountant",70000.00,null,"accounts",null,"2010-07-16");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(7,"dheeraj","kumar","clerk",40000.00,null,"accounts",6,"2016-07-01");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> insert into employee values(8,"saul","sood","engineer",60000.00,null,"r&d",7,"2014-09-06");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(9,"moul","bhat","clerk",30000.00,null,"sales",4,"2018-03-08");
+Query OK, 1 row affected (0.05 sec)
+
+
+mysql> insert into employee values(10,"sunny","deol","salesman",20000.00,1000,"marketing",null,"2001-03-31");
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into employee values(11,"bobby","deol","engineer",35000.00,null,"marketing",null,"2017-10-17");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into employee values(12,"aamir","khan","salesman",15000.00,5000,"marketing",2,"2013-01-11");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from employee;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+12 rows in set (0.00 sec)
+
+
+mysql> create table department(d_name varchar(30) primary key,d_loc varchar(30),hod_id int(5));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into department values("sales","kolkata",4);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values("accounts","delhi",6);
+Query OK, 1 row affected (0.03 sec)
+
+mysql> insert into department values("production","delhi",1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into department values("marketing","kolkata",2);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from department;
++------------+---------+--------+
+| d_name     | d_loc   | hod_id |
++------------+---------+--------+
+| accounts   | delhi   |      6 |
+| marketing  | kolkata |      2 |
+| production | delhi   |      1 |
+| sales      | kolkata |      4 |
++------------+---------+--------+
+4 rows in set (0.00 sec)
+
+mysql> select d_name,d_loc from department;
++------------+---------+
+| d_name     | d_loc   |
++------------+---------+
+| accounts   | delhi   |
+| marketing  | kolkata |
+| production | delhi   |
+| sales      | kolkata |
++------------+---------+
+4 rows in set (0.00 sec)
+
+mysql> create view emp_1 as select f_name,l_name,salary from employee where salary >10000;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from emp_1;
++---------+--------+--------+
+| f_name  | l_name | salary |
++---------+--------+--------+
+| arun    | khan   |  90000 |
+| barun   | kumar  |  80000 |
+| chitra  | kapoor |  60000 |
+| dheeraj | mishra |  75000 |
+| emma    | dutt   |  55000 |
+| floki   | dutt   |  70000 |
+| dheeraj | kumar  |  40000 |
+| saul    | sood   |  60000 |
+| moul    | bhat   |  30000 |
+| sunny   | deol   |  20000 |
+| bobby   | deol   |  35000 |
+| aamir   | khan   |  15000 |
++---------+--------+--------+
+12 rows in set (0.00 sec)
+
+mysql> create view emp2 as select f_name,salary from employee;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp2;
++---------+--------+
+| f_name  | salary |
++---------+--------+
+| arun    |  90000 |
+| barun   |  80000 |
+| chitra  |  60000 |
+| dheeraj |  75000 |
+| emma    |  55000 |
+| floki   |  70000 |
+| dheeraj |  40000 |
+| saul    |  60000 |
+| moul    |  30000 |
+| sunny   |  20000 |
+| bobby   |  35000 |
+| aamir   |  15000 |
++---------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select MAX(salary)  from employee;
++-------------+
+| MAX(salary) |
++-------------+
+|       90000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select min(salary)  from employee;
++-------------+
+| min(salary) |
++-------------+
+|       15000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select ,f_name,min(salary)  from employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'f_name,min(salary)  from employee' at line 1
+mysql> select emp_id,f_name,l_name from employee;
++--------+---------+--------+
+| emp_id | f_name  | l_name |
++--------+---------+--------+
+|      1 | arun    | khan   |
+|      2 | barun   | kumar  |
+|      3 | chitra  | kapoor |
+|      4 | dheeraj | mishra |
+|      5 | emma    | dutt   |
+|      6 | floki   | dutt   |
+|      7 | dheeraj | kumar  |
+|      8 | saul    | sood   |
+|      9 | moul    | bhat   |
+|     10 | sunny   | deol   |
+|     11 | bobby   | deol   |
+|     12 | aamir   | khan   |
++--------+---------+--------+
+12 rows in set (0.00 sec)
+
+mysql> select emp_id,f_name,l_name from employee where min(salary);
+ERROR 1111 (HY000): Invalid use of group function
+mysql> select emp_id,f_name,l_name from employee where salary=min;
+ERROR 1054 (42S22): Unknown column 'min' in 'where clause'
+mysql> select avg(salary) from employee;
++-------------+
+| avg(salary) |
++-------------+
+|  52500.0000 |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select f_name,l_name,job_type from employee;
++---------+--------+------------+
+| f_name  | l_name | job_type   |
++---------+--------+------------+
+| arun    | khan   | manager    |
+| barun   | kumar  | manager    |
+| chitra  | kapoor | engineer   |
+| dheeraj | mishra | manager    |
+| emma    | dutt   | engineer   |
+| floki   | dutt   | accountant |
+| dheeraj | kumar  | clerk      |
+| saul    | sood   | engineer   |
+| moul    | bhat   | clerk      |
+| sunny   | deol   | salesman   |
+| bobby   | deol   | engineer   |
+| aamir   | khan   | salesman   |
++---------+--------+------------+
+12 rows in set (0.01 sec)
+
+mysql> select concat(f_name,"is a",job_type) as Employee_Details from employee;
++---------------------+
+| Employee_Details    |
++---------------------+
+| arunis amanager     |
+| barunis amanager    |
+| chitrais aengineer  |
+| dheerajis amanager  |
+| emmais aengineer    |
+| flokiis aaccountant |
+| dheerajis aclerk    |
+| saulis aengineer    |
+| moulis aclerk       |
+| sunnyis asalesman   |
+| bobbyis aengineer   |
+| aamiris asalesman   |
++---------------------+
+12 rows in set (0.00 sec)
+
+mysql> select concat(f_name,"monthly salary is rs",salary) as Monthly_salary from employee;
++----------------------------------+
+| Monthly_salary                   |
++----------------------------------+
+| arunmonthly salary is rs90000    |
+| barunmonthly salary is rs80000   |
+| chitramonthly salary is rs60000  |
+| dheerajmonthly salary is rs75000 |
+| emmamonthly salary is rs55000    |
+| flokimonthly salary is rs70000   |
+| dheerajmonthly salary is rs40000 |
+| saulmonthly salary is rs60000    |
+| moulmonthly salary is rs30000    |
+| sunnymonthly salary is rs20000   |
+| bobbymonthly salary is rs35000   |
+| aamirmonthly salary is rs15000   |
++----------------------------------+
+12 rows in set (0.00 sec)
+
+mysql> select distinct(d_name) from department;
++------------+
+| d_name     |
++------------+
+| accounts   |
+| marketing  |
+| production |
+| sales      |
++------------+
+4 rows in set (0.00 sec)
+
+mysql> select f_name from employee where dept="sales";
++---------+
+| f_name  |
++---------+
+| dheeraj |
+| moul    |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> select concat(f_name," ",l_name) as Name from employee where salary>=50000;
++----------------+
+| Name           |
++----------------+
+| arun khan      |
+| barun kumar    |
+| chitra kapoor  |
+| dheeraj mishra |
+| emma dutt      |
+| floki dutt     |
+| saul sood      |
++----------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from employee where manager_id!=1;
++--------+---------+--------+----------+--------+------------+-----------+------------+------------+
+| emp_id | f_name  | l_name | job_type | salary | commission | dept      | manager_id | d_o_j      |
++--------+---------+--------+----------+--------+------------+-----------+------------+------------+
+|      7 | dheeraj | kumar  | clerk    |  40000 |       NULL | accounts  |          6 | 2016-07-01 |
+|      8 | saul    | sood   | engineer |  60000 |       NULL | r&d       |          7 | 2014-09-06 |
+|      9 | moul    | bhat   | clerk    |  30000 |       NULL | sales     |          4 | 2018-03-08 |
+|     12 | aamir   | khan   | salesman |  15000 |       5000 | marketing |          2 | 2013-01-11 |
++--------+---------+--------+----------+--------+------------+-----------+------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select * from employee where salary between 40000 and 70000;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select * from employee where manager_id IN(1,6,8);
++--------+---------+--------+----------+--------+------------+----------+------------+------------+
+| emp_id | f_name  | l_name | job_type | salary | commission | dept     | manager_id | d_o_j      |
++--------+---------+--------+----------+--------+------------+----------+------------+------------+
+|      7 | dheeraj | kumar  | clerk    |  40000 |       NULL | accounts |          6 | 2016-07-01 |
++--------+---------+--------+----------+--------+------------+----------+------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select f_name,salary from employee where l_name like "k%";
++---------+--------+
+| f_name  | salary |
++---------+--------+
+| arun    |  90000 |
+| barun   |  80000 |
+| chitra  |  60000 |
+| dheeraj |  40000 |
+| aamir   |  15000 |
++---------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select f_name,salary from employee where l_name like "k%r";
++---------+--------+
+| f_name  | salary |
++---------+--------+
+| barun   |  80000 |
+| chitra  |  60000 |
+| dheeraj |  40000 |
++---------+--------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where l_name like"__o%";
++--------+--------+--------+----------+--------+------------+-----------+------------+------------+
+| emp_id | f_name | l_name | job_type | salary | commission | dept      | manager_id | d_o_j      |
++--------+--------+--------+----------+--------+------------+-----------+------------+------------+
+|      8 | saul   | sood   | engineer |  60000 |       NULL | r&d       |          7 | 2014-09-06 |
+|     10 | sunny  | deol   | salesman |  20000 |       1000 | marketing |       NULL | 2001-03-31 |
+|     11 | bobby  | deol   | engineer |  35000 |       NULL | marketing |       NULL | 2017-10-17 |
++--------+--------+--------+----------+--------+------------+-----------+------------+------------+
+3 rows in set (0.01 sec)
+
+mysql> select * from employee where job_type="engineer" and salary>=50000;
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+| emp_id | f_name | l_name | job_type | salary | commission | dept       | manager_id | d_o_j      |
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+|      3 | chitra | kapoor | engineer |  60000 |       NULL | production |       NULL | 1998-01-08 |
+|      5 | emma   | dutt   | engineer |  55000 |       NULL | production |       NULL | 2002-03-20 |
+|      8 | saul   | sood   | engineer |  60000 |       NULL | r&d        |          7 | 2014-09-06 |
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> select * from employee where dept="production" and salary>=60000;
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+| emp_id | f_name | l_name | job_type | salary | commission | dept       | manager_id | d_o_j      |
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+|      1 | arun   | khan   | manager  |  90000 |       NULL | production |       NULL | 1998-01-04 |
+|      3 | chitra | kapoor | engineer |  60000 |       NULL | production |       NULL | 1998-01-08 |
++--------+--------+--------+----------+--------+------------+------------+------------+------------+
+2 rows in set (0.00 sec)
+
+mysql> select min(salary),max(salary),sum(salary),avg(salary) from employee where where dept="sales";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where dept="sales"' at line 1
+mysql> select min(salary),max(salary),sum(salary),avg(salary) from employee where dept="sales";
++-------------+-------------+-------------+-------------+
+| min(salary) | max(salary) | sum(salary) | avg(salary) |
++-------------+-------------+-------------+-------------+
+|       30000 |       75000 |      105000 |  52500.0000 |
++-------------+-------------+-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select l_name from employee order by f_name limit 1;
++--------+
+| l_name |
++--------+
+| khan   |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select l_name from employee order by f_name desc limit 1;
++--------+
+| l_name |
++--------+
+| deol   |
++--------+
+1 row in set (0.00 sec)
+
+mysql> select count(*) as employee,dept from employee group by dept;
++----------+------------+
+| employee | dept       |
++----------+------------+
+|        2 | accounts   |
+|        4 | marketing  |
+|        3 | production |
+|        1 | r&d        |
+|        2 | sales      |
++----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select count(distinct(dept)) as department from employee;
++------------+
+| department |
++------------+
+|          5 |
++------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(commission) from employee;
++-----------------+
+| avg(commission) |
++-----------------+
+|       3000.0000 |
++-----------------+
+1 row in set (0.00 sec)
+
+mysql> select avg(salary),dept from employee group by dept;
++-------------+------------+
+| avg(salary) | dept       |
++-------------+------------+
+|  55000.0000 | accounts   |
+|  37500.0000 | marketing  |
+|  68333.3333 | production |
+|  60000.0000 | r&d        |
+|  52500.0000 | sales      |
++-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(salary),dept,job_type from employee group by dept,job_type;
++-------------+------------+------------+
+| sum(salary) | dept       | job_type   |
++-------------+------------+------------+
+|       70000 | accounts   | accountant |
+|       40000 | accounts   | clerk      |
+|       35000 | marketing  | engineer   |
+|       80000 | marketing  | manager    |
+|       35000 | marketing  | salesman   |
+|      115000 | production | engineer   |
+|       90000 | production | manager    |
+|       60000 | r&d        | engineer   |
+|       30000 | sales      | clerk      |
+|       75000 | sales      | manager    |
++-------------+------------+------------+
+10 rows in set (0.00 sec)
+
+mysql> select avg(salary),dept from employee group by dept having avg(salary)>40000;
++-------------+------------+
+| avg(salary) | dept       |
++-------------+------------+
+|  55000.0000 | accounts   |
+|  68333.3333 | production |
+|  60000.0000 | r&d        |
+|  52500.0000 | sales      |
++-------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> select max(salary),dept from employee group by dept having max(salary)>55000;
++-------------+------------+
+| max(salary) | dept       |
++-------------+------------+
+|       70000 | accounts   |
+|       80000 | marketing  |
+|       90000 | production |
+|       60000 | r&d        |
+|       75000 | sales      |
++-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> select sum(salary),job_type from employee group by job_type having sum(salary)>100000;
++-------------+----------+
+| sum(salary) | job_type |
++-------------+----------+
+|      210000 | engineer |
+|      245000 | manager  |
++-------------+----------+
+2 rows in set (0.01 sec)
+
+mysql> select avg(salary),dept from employee group by dept order by avg(salary) desc limit 1;
++-------------+------------+
+| avg(salary) | dept       |
++-------------+------------+
+|  68333.3333 | production |
++-------------+------------+
+1 row in set (0.00 sec)
+
+mysql> select upper(f_name),lower(l_name) from employee;
++---------------+---------------+
+| upper(f_name) | lower(l_name) |
++---------------+---------------+
+| ARUN          | khan          |
+| BARUN         | kumar         |
+| CHITRA        | kapoor        |
+| DHEERAJ       | mishra        |
+| EMMA          | dutt          |
+| FLOKI         | dutt          |
+| DHEERAJ       | kumar         |
+| SAUL          | sood          |
+| MOUL          | bhat          |
+| SUNNY         | deol          |
+| BOBBY         | deol          |
+| AAMIR         | khan          |
++---------------+---------------+
+12 rows in set (0.00 sec)
+
+mysql> select concat("hello"," ","world") as string;
++-------------+
+| string      |
++-------------+
+| hello world |
++-------------+
+1 row in set (0.00 sec)
+
+mysql> select instr("hello world");
+ERROR 1582 (42000): Incorrect parameter count in the call to native function 'instr'
+mysql> select length("hello world");
++-----------------------+
+| length("hello world") |
++-----------------------+
+|                    11 |
++-----------------------+
+1 row in set (0.00 sec)
+
+mysql> sqrt(9);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'sqrt(9)' at line 1
+mysql> 10% for sales from dept
+    -> update employee set salary=salary*.1 where dept="sales";
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '10% for sales from dept
+update employee set salary=salary*.1 where dept="sales"' at line 1
+mysql> select employee.f_name,department.d_loc from employee,department where employee.dept=department.d_name;
++---------+---------+
+| f_name  | d_loc   |
++---------+---------+
+| arun    | delhi   |
+| barun   | kolkata |
+| chitra  | delhi   |
+| dheeraj | kolkata |
+| emma    | delhi   |
+| floki   | delhi   |
+| dheeraj | delhi   |
+| moul    | kolkata |
+| sunny   | kolkata |
+| bobby   | kolkata |
+| aamir   | kolkata |
++---------+---------+
+11 rows in set (0.00 sec)
+
+mysql> select * from employee natural join department;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      | d_name     | d_loc   | hod_id |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | accounts   | delhi   |      6 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | marketing  | kolkata |      2 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | production | delhi   |      1 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | sales      | kolkata |      4 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | accounts   | delhi   |      6 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | marketing  | kolkata |      2 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | production | delhi   |      1 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | sales      | kolkata |      4 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | accounts   | delhi   |      6 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | marketing  | kolkata |      2 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | production | delhi   |      1 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | sales      | kolkata |      4 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | accounts   | delhi   |      6 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | marketing  | kolkata |      2 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | production | delhi   |      1 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | sales      | kolkata |      4 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | accounts   | delhi   |      6 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | marketing  | kolkata |      2 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | production | delhi   |      1 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | sales      | kolkata |      4 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | accounts   | delhi   |      6 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | marketing  | kolkata |      2 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | production | delhi   |      1 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | sales      | kolkata |      4 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | accounts   | delhi   |      6 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | marketing  | kolkata |      2 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | production | delhi   |      1 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | sales      | kolkata |      4 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | accounts   | delhi   |      6 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | marketing  | kolkata |      2 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | production | delhi   |      1 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | sales      | kolkata |      4 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | accounts   | delhi   |      6 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | marketing  | kolkata |      2 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | production | delhi   |      1 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | sales      | kolkata |      4 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | accounts   | delhi   |      6 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | marketing  | kolkata |      2 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | production | delhi   |      1 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | sales      | kolkata |      4 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | accounts   | delhi   |      6 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | marketing  | kolkata |      2 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | production | delhi   |      1 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | sales      | kolkata |      4 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | accounts   | delhi   |      6 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | marketing  | kolkata |      2 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | production | delhi   |      1 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | sales      | kolkata |      4 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+48 rows in set (0.00 sec)
+
+mysql> select * from employee inner join department;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      | d_name     | d_loc   | hod_id |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | accounts   | delhi   |      6 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | marketing  | kolkata |      2 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | production | delhi   |      1 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | sales      | kolkata |      4 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | accounts   | delhi   |      6 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | marketing  | kolkata |      2 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | production | delhi   |      1 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | sales      | kolkata |      4 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | accounts   | delhi   |      6 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | marketing  | kolkata |      2 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | production | delhi   |      1 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | sales      | kolkata |      4 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | accounts   | delhi   |      6 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | marketing  | kolkata |      2 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | production | delhi   |      1 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | sales      | kolkata |      4 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | accounts   | delhi   |      6 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | marketing  | kolkata |      2 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | production | delhi   |      1 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | sales      | kolkata |      4 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | accounts   | delhi   |      6 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | marketing  | kolkata |      2 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | production | delhi   |      1 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | sales      | kolkata |      4 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | accounts   | delhi   |      6 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | marketing  | kolkata |      2 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | production | delhi   |      1 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | sales      | kolkata |      4 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | accounts   | delhi   |      6 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | marketing  | kolkata |      2 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | production | delhi   |      1 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | sales      | kolkata |      4 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | accounts   | delhi   |      6 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | marketing  | kolkata |      2 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | production | delhi   |      1 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | sales      | kolkata |      4 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | accounts   | delhi   |      6 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | marketing  | kolkata |      2 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | production | delhi   |      1 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | sales      | kolkata |      4 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | accounts   | delhi   |      6 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | marketing  | kolkata |      2 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | production | delhi   |      1 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | sales      | kolkata |      4 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | accounts   | delhi   |      6 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | marketing  | kolkata |      2 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | production | delhi   |      1 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | sales      | kolkata |      4 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+48 rows in set (0.00 sec)
+
+mysql> select * from employee left join department;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select * from employee left join department on employee,dept=department,d_name;
+ERROR 1066 (42000): Not unique table/alias: 'department'
+mysql> select * from employee right join department on employee,dept=department,d_name;
+ERROR 1066 (42000): Not unique table/alias: 'department'
+mysql> select * from employee full join department;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      | d_name     | d_loc   | hod_id |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | accounts   | delhi   |      6 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | marketing  | kolkata |      2 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | production | delhi   |      1 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | sales      | kolkata |      4 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | accounts   | delhi   |      6 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | marketing  | kolkata |      2 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | production | delhi   |      1 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | sales      | kolkata |      4 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | accounts   | delhi   |      6 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | marketing  | kolkata |      2 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | production | delhi   |      1 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | sales      | kolkata |      4 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | accounts   | delhi   |      6 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | marketing  | kolkata |      2 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | production | delhi   |      1 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | sales      | kolkata |      4 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | accounts   | delhi   |      6 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | marketing  | kolkata |      2 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | production | delhi   |      1 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | sales      | kolkata |      4 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | accounts   | delhi   |      6 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | marketing  | kolkata |      2 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | production | delhi   |      1 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | sales      | kolkata |      4 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | accounts   | delhi   |      6 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | marketing  | kolkata |      2 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | production | delhi   |      1 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | sales      | kolkata |      4 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | accounts   | delhi   |      6 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | marketing  | kolkata |      2 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | production | delhi   |      1 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | sales      | kolkata |      4 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | accounts   | delhi   |      6 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | marketing  | kolkata |      2 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | production | delhi   |      1 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | sales      | kolkata |      4 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | accounts   | delhi   |      6 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | marketing  | kolkata |      2 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | production | delhi   |      1 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | sales      | kolkata |      4 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | accounts   | delhi   |      6 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | marketing  | kolkata |      2 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | production | delhi   |      1 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | sales      | kolkata |      4 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | accounts   | delhi   |      6 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | marketing  | kolkata |      2 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | production | delhi   |      1 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | sales      | kolkata |      4 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+48 rows in set (0.00 sec)
+
+mysql> select * from employee,department;
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+| emp_id | f_name  | l_name | job_type   | salary | commission | dept       | manager_id | d_o_j      | d_name     | d_loc   | hod_id |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | accounts   | delhi   |      6 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | marketing  | kolkata |      2 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | production | delhi   |      1 |
+|      1 | arun    | khan   | manager    |  90000 |       NULL | production |       NULL | 1998-01-04 | sales      | kolkata |      4 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | accounts   | delhi   |      6 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | marketing  | kolkata |      2 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | production | delhi   |      1 |
+|      2 | barun   | kumar  | manager    |  80000 |       NULL | marketing  |       NULL | 1998-02-09 | sales      | kolkata |      4 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | accounts   | delhi   |      6 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | marketing  | kolkata |      2 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | production | delhi   |      1 |
+|      3 | chitra  | kapoor | engineer   |  60000 |       NULL | production |       NULL | 1998-01-08 | sales      | kolkata |      4 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | accounts   | delhi   |      6 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | marketing  | kolkata |      2 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | production | delhi   |      1 |
+|      4 | dheeraj | mishra | manager    |  75000 |       NULL | sales      |       NULL | 2001-12-27 | sales      | kolkata |      4 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | accounts   | delhi   |      6 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | marketing  | kolkata |      2 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | production | delhi   |      1 |
+|      5 | emma    | dutt   | engineer   |  55000 |       NULL | production |       NULL | 2002-03-20 | sales      | kolkata |      4 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | accounts   | delhi   |      6 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | marketing  | kolkata |      2 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | production | delhi   |      1 |
+|      6 | floki   | dutt   | accountant |  70000 |       NULL | accounts   |       NULL | 2010-07-16 | sales      | kolkata |      4 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | accounts   | delhi   |      6 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | marketing  | kolkata |      2 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | production | delhi   |      1 |
+|      7 | dheeraj | kumar  | clerk      |  40000 |       NULL | accounts   |          6 | 2016-07-01 | sales      | kolkata |      4 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | accounts   | delhi   |      6 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | marketing  | kolkata |      2 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | production | delhi   |      1 |
+|      8 | saul    | sood   | engineer   |  60000 |       NULL | r&d        |          7 | 2014-09-06 | sales      | kolkata |      4 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | accounts   | delhi   |      6 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | marketing  | kolkata |      2 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | production | delhi   |      1 |
+|      9 | moul    | bhat   | clerk      |  30000 |       NULL | sales      |          4 | 2018-03-08 | sales      | kolkata |      4 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | accounts   | delhi   |      6 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | marketing  | kolkata |      2 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | production | delhi   |      1 |
+|     10 | sunny   | deol   | salesman   |  20000 |       1000 | marketing  |       NULL | 2001-03-31 | sales      | kolkata |      4 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | accounts   | delhi   |      6 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | marketing  | kolkata |      2 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | production | delhi   |      1 |
+|     11 | bobby   | deol   | engineer   |  35000 |       NULL | marketing  |       NULL | 2017-10-17 | sales      | kolkata |      4 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | accounts   | delhi   |      6 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | marketing  | kolkata |      2 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | production | delhi   |      1 |
+|     12 | aamir   | khan   | salesman   |  15000 |       5000 | marketing  |          2 | 2013-01-11 | sales      | kolkata |      4 |
++--------+---------+--------+------------+--------+------------+------------+------------+------------+------------+---------+--------+
+48 rows in set (0.00 sec)
+
+mysql> select f_name,dept,d_loc from employee,department where employee.dept=department.d_name;
++---------+------------+---------+
+| f_name  | dept       | d_loc   |
++---------+------------+---------+
+| arun    | production | delhi   |
+| barun   | marketing  | kolkata |
+| chitra  | production | delhi   |
+| dheeraj | sales      | kolkata |
+| emma    | production | delhi   |
+| floki   | accounts   | delhi   |
+| dheeraj | accounts   | delhi   |
+| moul    | sales      | kolkata |
+| sunny   | marketing  | kolkata |
+| bobby   | marketing  | kolkata |
+| aamir   | marketing  | kolkata |
++---------+------------+---------+
+11 rows in set (0.00 sec)
+
+mysql> select employee.f_name,employee.d_o_j from employee,department where employee.dept=department.d_name and department.d_loc="delhi";
++---------+------------+
+| f_name  | d_o_j      |
++---------+------------+
+| arun    | 1998-01-04 |
+| chitra  | 1998-01-08 |
+| emma    | 2002-03-20 |
+| floki   | 2010-07-16 |
+| dheeraj | 2016-07-01 |
++---------+------------+
+5 rows in set (0.00 sec)
+
+mysql> create table emp_address(emp_id int(5),city varchar(20),district varchar(50),state varchar(16));
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> insert into emp_address(1,"suri","birbhum","wb");
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"suri","birbhum","wb")' at line 1
+mysql> create table emp_address(emp_id int(5),city varchar(20),district varchar(50),state varchar(16));
+ERROR 1050 (42S01): Table 'emp_address' already exists
+mysql> insert into emp_address(1,"suri","birbhum","wb");                        ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '1,"suri","birbhum","wb")' at line 1
+mysql> select upper (f_name) as empdetails from employee;
++------------+
+| empdetails |
++------------+
+| ARUN       |
+| BARUN      |
+| CHITRA     |
+| DHEERAJ    |
+| EMMA       |
+| FLOKI      |
+| DHEERAJ    |
+| SAUL       |
+| MOUL       |
+| SUNNY      |
+| BOBBY      |
+| AAMIR      |
++------------+
+12 rows in set (0.00 sec)
+
+
+
